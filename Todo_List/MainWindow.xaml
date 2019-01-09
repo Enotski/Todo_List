@@ -5,8 +5,74 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Todo_List"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+         Title="DayBricks_1" MinHeight="450" Background="#070F1B" MaxWidth="580"  MinWidth="480" Width="580" Height="412.5">
+	<Grid Margin="10">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="40"/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="auto" MinWidth="427"/>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
+
+		<Menu Height="20" VerticalAlignment="Top" Background="Transparent" Margin="0,10,13,0">
+			<MenuItem Click="SaveFile_Click" Margin="0, 0, 10, 0" Foreground="White" Background="#0079E5" Header="Save in file">
+			</MenuItem>
+			<MenuItem Click="LoadFile_Click" Background="#58A7EE" Foreground="White" Header="Load from file">
+			</MenuItem>
+		</Menu>
+
+		<StackPanel Orientation="Vertical" MinWidth="100" Grid.Row="1" Grid.Column="1" Margin="5,0,5,10">
+			<Button x:Name="btnAdd" Background="#0073E8" FontWeight="Bold" Foreground="White" Content="Add Task" Margin="10,20" Padding="0, 7" Click="btnAdd_Click"/>
+			<Button x:Name="btnEdit" Background="YellowGreen" FontWeight="Bold" Foreground="White" Content="Edit Task" Margin="10, 20" Padding="0, 7" Click="btnEdit_Click"/>
+			<Button x:Name="btnRemove" Background="Maroon" FontWeight="Bold" Foreground="White" Content="Remove Task" Margin="10, 20" Padding="0, 7" Click="btnRemove_Click"/>
+			<Button x:Name="btnComplete" Background="Orange" FontWeight="Bold" Foreground="White" Content="Complete Task" Margin="10, 20"
+					Padding="0, 7" Click="btnComplete_Click"/>
+			<TextBlock Foreground="White" Background="Transparent" TextAlignment="Center"  Text="Completed" Height="20"/>
+			<TextBlock x:Name="CompletedCount"  Foreground="White" Background="Transparent" TextAlignment="Center"  Text="{Binding Path=_completedTasks}" Height="30"/>
+		</StackPanel>
+
+		<ListView x:Name="TaskList" MaxHeight="360" MaxWidth="425" Background="Transparent" BorderThickness="0"  Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Stretch"  AlternationCount="2">
+			<ListView.ItemContainerStyle>
+				<Style TargetType="ListViewItem">
+					<Style.Triggers>
+						<Trigger Property="ItemsControl.AlternationIndex"  Value="0">
+							<Setter Property="Background" Value="#58A7EE" />
+						</Trigger>
+						<Trigger Property="ItemsControl.AlternationIndex"  Value="1">
+							<Setter Property="Background" Value="#0079E5" />
+						</Trigger>
+					</Style.Triggers>
+				</Style>
+			</ListView.ItemContainerStyle>
+
+			<ListView.ItemTemplate>
+				<DataTemplate>
+
+					<DataTemplate.Triggers>
+						<DataTrigger Binding="{Binding Path=Vital}" Value="true">
+							<Setter TargetName="TaskBlock" Property="Panel.Background" Value="Orange"/>
+							<Setter TargetName="Order" Property="TextBlock.Background" Value="OrangeRed"/>
+						</DataTrigger>
+					</DataTemplate.Triggers>
+
+					<DockPanel x:Name="TaskBlock" HorizontalAlignment="Stretch" Margin="-2 ,0, 0, 0">
+						<TextBlock x:Name="Order" HorizontalAlignment="Stretch" Background="{Binding ElementName=TaskBlock, Path=Background}" Width="32"  FontSize="16" FontWeight="Bold" Padding="7" TextAlignment="Center" Text="{Binding Counter}" Foreground="White"/>
+						<TextBlock DockPanel.Dock="Right" x:Name="ToDo" FontSize="16" FontWeight="Bold" Padding="7" Text="{Binding ToDo}" Foreground="White"/>
+
+						<DockPanel.ToolTip>
+							<ToolTip Background="#070F1B" Foreground="White" HasDropShadow="False"
+                Placement="Relative" HorizontalOffset="15" VerticalOffset="10">
+								<StackPanel>
+									<TextBlock Text="{Binding SettedDate}" />
+								</StackPanel>
+							</ToolTip>
+						</DockPanel.ToolTip>
+
+					</DockPanel>
+				</DataTemplate>
+			</ListView.ItemTemplate>
+		</ListView>
+	</Grid>
 </Window>
