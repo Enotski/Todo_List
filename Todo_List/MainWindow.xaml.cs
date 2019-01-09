@@ -15,7 +15,7 @@ namespace Todo_List
         private int _completedCounter;
         XDocument xDoc;
         XElement xElemRoot;
-        ObservableCollection<Task> _tascksCollection;
+        ObservableCollection<ToDoTask> _tascksCollection;
         string localTasksFile = "LocalTasks.xml"; 
         string localHistoryFile = "LocalHistory.xml";
         string filePath = null;
@@ -23,8 +23,8 @@ namespace Todo_List
         public MainWindow()
         {
             InitializeComponent();
-            _tascksCollection = new ObservableCollection<Task>();
-            _tascksCollection.Add(new Task { ToDo = "something", SettedDate = DateTime.Now, Vital = true });
+            _tascksCollection = new ObservableCollection<ToDoTask>();
+            _tascksCollection.Add(new ToDoTask { ToDo = "something", SettedDate = DateTime.Now, Vital = true });
             TaskList.ItemsSource = _tascksCollection;
             UpdateTaskList();
         }
@@ -33,7 +33,7 @@ namespace Todo_List
         {
             if (TaskList.SelectedItem != null)
             {
-                Task tsk = TaskList.SelectedItem as Task;
+                ToDoTask tsk = TaskList.SelectedItem as ToDoTask;
                 TaskEditor editor = new TaskEditor() { DataContext = tsk };
                 TaskEditorControlWindow c_window = new TaskEditorControlWindow(editor);
                 c_window.ShowDialog();
@@ -42,7 +42,7 @@ namespace Todo_List
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            Task tsk = new Task();
+            ToDoTask tsk = new ToDoTask();
             TaskEditor t_edit = new TaskEditor() { DataContext = tsk };
             TaskEditorControlWindow c_Window = new TaskEditorControlWindow(t_edit);
             if (c_Window.ShowDialog().Value)
@@ -56,7 +56,7 @@ namespace Todo_List
         {
             if (TaskList.SelectedItem != null)
             {
-                Task tsk = TaskList.SelectedItem as Task;
+                ToDoTask tsk = TaskList.SelectedItem as ToDoTask;
                 _tascksCollection.Remove(tsk);
                 UpdateTaskList();
             }
@@ -75,7 +75,7 @@ namespace Todo_List
             {
                 filePath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, @"LocalStorage\", localHistoryFile);
 
-                Task tsk = TaskList.SelectedItem as Task;
+                ToDoTask tsk = TaskList.SelectedItem as ToDoTask;
                 _tascksCollection.Remove(tsk);
                 UpdateTaskList();
                 CompletedCount.Text = (++_completedCounter).ToString();
@@ -96,7 +96,7 @@ namespace Todo_List
             xDoc = XDocument.Load(filePath);
             xElemRoot = xDoc.Element("tasks");
             xElemRoot.RemoveNodes();
-            foreach (Task tsk in _tascksCollection)
+            foreach (ToDoTask tsk in _tascksCollection)
             {
                 xElemRoot.Add(new XElement("task",
                     new XAttribute("todo", tsk.ToDo),
@@ -119,7 +119,7 @@ namespace Todo_List
                 {
                     if (_tascksCollection.Where(tsk => tsk.ToDo == attribute.Value).Count() == 0)
                     {
-                        _tascksCollection.Add(new Task
+                        _tascksCollection.Add(new ToDoTask
                         {
                             ToDo = attribute.Value,
                             SettedDate = DateTime.Parse(dateElem.Value),

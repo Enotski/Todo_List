@@ -4,19 +4,19 @@ using System.Windows;
 
 namespace Todo_List
 {
-    public class Task : DependencyObject
+    public class ToDoTask : DependencyObject
     {
         public static readonly DependencyProperty ToDoProperty;
         public static readonly DependencyProperty SettedDateProperty;
         public static readonly DependencyProperty VitalProperty;
         public static readonly DependencyProperty CounterProperty;
 
-        static Task()
+        static ToDoTask()
         {
-            ToDoProperty = DependencyProperty.Register("ToDo", typeof(string), typeof(Task));
-            SettedDateProperty = DependencyProperty.Register("SettedDate", typeof(DateTime), typeof(Task));
-            VitalProperty = DependencyProperty.Register("Vital", typeof(bool), typeof(Task));
-            CounterProperty = DependencyProperty.Register("Counter", typeof(int), typeof(Task));
+            ToDoProperty = DependencyProperty.Register("ToDo", typeof(string), typeof(ToDoTask));
+            SettedDateProperty = DependencyProperty.Register("SettedDate", typeof(DateTime), typeof(ToDoTask));
+            VitalProperty = DependencyProperty.Register("Vital", typeof(bool), typeof(ToDoTask));
+            CounterProperty = DependencyProperty.Register("Counter", typeof(int), typeof(ToDoTask));
         }
 
         [Display(Name = "Task")]

@@ -14,7 +14,7 @@ namespace Todo_List
     public partial class TaskEditorControlWindow : Window
     {
         FrameworkElement _controlForShow = null;
-        public Task newTask;
+        public ToDoTask newTask;
         public TaskEditorControlWindow(FrameworkElement t_controlForShow)
         {
             InitializeComponent();

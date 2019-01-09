@@ -6,6 +6,15 @@
         xmlns:local="clr-namespace:Todo_List"
         mc:Ignorable="d"
          Title="ToDo" MinHeight="450" Background="#070F1B" MaxWidth="580"  MinWidth="480" Width="580" Height="412.5">
+	<Window.Resources>
+		<Style x:Key="btnStyle" TargetType="Button">
+			<Setter Property="FontWeight" Value="Bold"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="Margin" Value="10,20"/>
+			<Setter Property="Padding" Value="0, 7"/>
+			<Setter Property="BorderThickness" Value="0"/>
+		</Style>
+	</Window.Resources>
 	<Grid Margin="10">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="40"/>
@@ -23,12 +32,12 @@
 			</MenuItem>
 		</Menu>
 
-		<StackPanel Orientation="Vertical" MinWidth="100" Grid.Row="1" Grid.Column="1" Margin="5,0,5,10">
-			<Button x:Name="btnAdd" Background="#0073E8" FontWeight="Bold" Foreground="White" Content="Add Task" Margin="10,20" Padding="0, 7" Click="btnAdd_Click"/>
-			<Button x:Name="btnEdit" Background="YellowGreen" FontWeight="Bold" Foreground="White" Content="Edit Task" Margin="10, 20" Padding="0, 7" Click="btnEdit_Click"/>
-			<Button x:Name="btnRemove" Background="Maroon" FontWeight="Bold" Foreground="White" Content="Remove Task" Margin="10, 20" Padding="0, 7" Click="btnRemove_Click"/>
-			<Button x:Name="btnComplete" Background="Orange" FontWeight="Bold" Foreground="White" Content="Complete Task" Margin="10, 20"
-					Padding="0, 7" Click="btnComplete_Click"/>
+		<StackPanel Orientation="Vertical" MinWidth="100" Grid.Row="1" Grid.Column="1" Margin="0,0,0,10" HorizontalAlignment="Stretch">
+			<Button x:Name="btnAdd" Content="Add Task" Click="btnAdd_Click" Style="{DynamicResource btnStyle}" Background="YellowGreen" >
+			</Button>
+			<Button x:Name="btnEdit" Content="Edit Task" Click="btnEdit_Click" Style="{DynamicResource btnStyle}" Background="#0073E8"/>
+			<Button x:Name="btnRemove" Content="Remove Task" Click="btnRemove_Click" Style="{DynamicResource btnStyle}"  Background="Maroon" />
+			<Button x:Name="btnComplete" Content="Complete Task" Click="btnComplete_Click" Style="{DynamicResource btnStyle}" Background="Orange"/>
 			<TextBlock Foreground="White" Background="Transparent" TextAlignment="Center"  Text="Completed" Height="20"/>
 			<TextBlock x:Name="CompletedCount"  Foreground="White" Background="Transparent" TextAlignment="Center"  Text="{Binding Path=_completedTasks}" Height="30"/>
 		</StackPanel>
