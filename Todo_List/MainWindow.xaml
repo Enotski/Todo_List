@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Todo_List"
         mc:Ignorable="d"
-         Title="DayBricks_1" MinHeight="450" Background="#070F1B" MaxWidth="580"  MinWidth="480" Width="580" Height="412.5">
+         Title="ToDo" MinHeight="450" Background="#070F1B" MaxWidth="580"  MinWidth="480" Width="580" Height="412.5">
 	<Grid Margin="10">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="40"/>
