@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<tasks>
+  <task todo="something">
+    <settedDate>2019-01-09T15:35:53.3211878+04:00</settedDate>
+    <vital>true</vital>
+  </task>
+  <task todo="Something new">
+    <settedDate>0001-01-01T00:00:00</settedDate>
+    <vital>false</vital>
+  </task>
+  <task todo="Something important">
+    <settedDate>0001-01-01T00:00:00</settedDate>
+    <vital>false</vital>
+  </task>
+  <task todo="don`t forget to forget">
+    <settedDate>0001-01-01T00:00:00</settedDate>
+    <vital>false</vital>
+  </task>
+</tasks>

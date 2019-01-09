@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Collections.ObjectModel;
 using System.Xml.Linq;
+using System.IO;
 
 namespace Todo_List
 {
@@ -15,10 +16,15 @@ namespace Todo_List
         XDocument xDoc;
         XElement xElemRoot;
         ObservableCollection<Task> _tascksCollection;
+        string localTasksFile = "LocalTasks.xml"; 
+        string localHistoryFile = "LocalHistory.xml";
+        string filePath = null;
+
         public MainWindow()
         {
             InitializeComponent();
             _tascksCollection = new ObservableCollection<Task>();
+            _tascksCollection.Add(new Task { ToDo = "something", SettedDate = DateTime.Now, Vital = true });
             TaskList.ItemsSource = _tascksCollection;
             UpdateTaskList();
         }
@@ -67,24 +73,27 @@ namespace Todo_List
         {
             if (TaskList.SelectedItem != null)
             {
+                filePath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, @"LocalStorage\", localHistoryFile);
+
                 Task tsk = TaskList.SelectedItem as Task;
                 _tascksCollection.Remove(tsk);
                 UpdateTaskList();
                 CompletedCount.Text = (++_completedCounter).ToString();
 
-                xDoc = XDocument.Load("TasksLocalHistory.xml");
+                xDoc = XDocument.Load(filePath);
                 xElemRoot = xDoc.Element("tasks");
                 xElemRoot.Add(new XElement("task",
                         new XAttribute("todo", tsk.ToDo),
                         new XElement("settedDate", tsk.SettedDate),
                         new XElement("vital", tsk.Vital)));
-                xDoc.Save("TasksLocalHistory.xml");
+                xDoc.Save(filePath);
             }
         }
 
         private void SaveFile_Click(object sender, RoutedEventArgs e)
         {
-            xDoc = XDocument.Load("TasksLocal.xml");
+            filePath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, @"LocalStorage\", localTasksFile);
+            xDoc = XDocument.Load(filePath);
             xElemRoot = xDoc.Element("tasks");
             xElemRoot.RemoveNodes();
             foreach (Task tsk in _tascksCollection)
@@ -94,12 +103,13 @@ namespace Todo_List
                     new XElement("settedDate", tsk.SettedDate),
                     new XElement("vital", tsk.Vital)));
             }
-            xDoc.Save("TasksLocal.xml");
+            xDoc.Save(filePath);
         }
 
         private void LoadFile_Click(object sender, RoutedEventArgs e)
         {
-            xDoc = XDocument.Load("TasksLocal.xml");
+            filePath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, @"LocalStorage\", localTasksFile);
+            xDoc = XDocument.Load(filePath);
             foreach (var xTask in xDoc.Element("tasks").Elements())
             {
                 XAttribute attribute = xTask.Attribute("todo");

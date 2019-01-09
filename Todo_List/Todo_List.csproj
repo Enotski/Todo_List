@@ -109,5 +109,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="LocalStorage\LocalTasks.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="LocalStorage\LocalHistory.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
