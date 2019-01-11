@@ -12,7 +12,6 @@ namespace Todo_List
     /// </summary>
     public partial class MainWindow : Window
     {
-        private int _completedCounter;
         XDocument xDoc;
         XElement xElemRoot;
         ObservableCollection<ToDoTask> _tascksCollection;
@@ -24,20 +23,20 @@ namespace Todo_List
         {
             InitializeComponent();
             _tascksCollection = new ObservableCollection<ToDoTask>();
-            _tascksCollection.Add(new ToDoTask { ToDo = "something", SettedDate = DateTime.Now, Vital = true });
+            _tascksCollection.Add(new ToDoTask { ToDo = "something", SettedDate = DateTime.Now, Vital = false });
+            _tascksCollection.Add(new ToDoTask { ToDo = "something", SettedDate = DateTime.Now, Vital = false });
+            _tascksCollection.Add(new ToDoTask { ToDo = "something", SettedDate = DateTime.Now, Vital = false });
+            _tascksCollection.Add(new ToDoTask { ToDo = "something", SettedDate = DateTime.Now, Vital = false });
+            _tascksCollection.Add(new ToDoTask { ToDo = "something", SettedDate = DateTime.Now, Vital = false });
+            _tascksCollection.Add(new ToDoTask { ToDo = "something", SettedDate = DateTime.Now, Vital = false });
+            _tascksCollection.Add(new ToDoTask { ToDo = "something", SettedDate = DateTime.Now, Vital = false });
             TaskList.ItemsSource = _tascksCollection;
             UpdateTaskList();
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
-            if (TaskList.SelectedItem != null)
-            {
-                ToDoTask tsk = TaskList.SelectedItem as ToDoTask;
-                TaskEditor editor = new TaskEditor() { DataContext = tsk };
-                TaskEditorControlWindow c_window = new TaskEditorControlWindow(editor);
-                c_window.ShowDialog();
-            }
+
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
@@ -52,15 +51,6 @@ namespace Todo_List
             }
         }
 
-        private void btnRemove_Click(object sender, RoutedEventArgs e)
-        {
-            if (TaskList.SelectedItem != null)
-            {
-                ToDoTask tsk = TaskList.SelectedItem as ToDoTask;
-                _tascksCollection.Remove(tsk);
-                UpdateTaskList();
-            }
-        }
         private void UpdateTaskList()
         {
             foreach (var item in _tascksCollection)
@@ -78,7 +68,6 @@ namespace Todo_List
                 ToDoTask tsk = TaskList.SelectedItem as ToDoTask;
                 _tascksCollection.Remove(tsk);
                 UpdateTaskList();
-                CompletedCount.Text = (++_completedCounter).ToString();
 
                 xDoc = XDocument.Load(filePath);
                 xElemRoot = xDoc.Element("tasks");
@@ -90,45 +79,54 @@ namespace Todo_List
             }
         }
 
-        private void SaveFile_Click(object sender, RoutedEventArgs e)
+        //private void SaveFile_Click(object sender, RoutedEventArgs e)
+        //{
+        //    filePath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, @"LocalStorage\", localTasksFile);
+        //    xDoc = XDocument.Load(filePath);
+        //    xElemRoot = xDoc.Element("tasks");
+        //    xElemRoot.RemoveNodes();
+        //    foreach (ToDoTask tsk in _tascksCollection)
+        //    {
+        //        xElemRoot.Add(new XElement("task",
+        //            new XAttribute("todo", tsk.ToDo),
+        //            new XElement("settedDate", tsk.SettedDate),
+        //            new XElement("vital", tsk.Vital)));
+        //    }
+        //    xDoc.Save(filePath);
+        //}
+
+        //private void LoadFile_Click(object sender, RoutedEventArgs e)
+        //{
+        //    filePath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, @"LocalStorage\", localTasksFile);
+        //    xDoc = XDocument.Load(filePath);
+        //    foreach (var xTask in xDoc.Element("tasks").Elements())
+        //    {
+        //        XAttribute attribute = xTask.Attribute("todo");
+        //        XElement dateElem = xTask.Element("settedDate");
+        //        XElement vitalElem = xTask.Element("vital");
+        //        if (attribute != null && dateElem != null && vitalElem != null)
+        //        {
+        //            if (_tascksCollection.Where(tsk => tsk.ToDo == attribute.Value).Count() == 0)
+        //            {
+        //                _tascksCollection.Add(new ToDoTask
+        //                {
+        //                    ToDo = attribute.Value,
+        //                    SettedDate = DateTime.Parse(dateElem.Value),
+        //                    Vital = Boolean.Parse(vitalElem.Value),
+        //                    Counter = _tascksCollection.Count + 1
+        //                });
+        //            }
+        //        }
+        //    }
+        //}
+
+        private void editTask(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            filePath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, @"LocalStorage\", localTasksFile);
-            xDoc = XDocument.Load(filePath);
-            xElemRoot = xDoc.Element("tasks");
-            xElemRoot.RemoveNodes();
-            foreach (ToDoTask tsk in _tascksCollection)
-            {
-                xElemRoot.Add(new XElement("task",
-                    new XAttribute("todo", tsk.ToDo),
-                    new XElement("settedDate", tsk.SettedDate),
-                    new XElement("vital", tsk.Vital)));
-            }
-            xDoc.Save(filePath);
+                ToDoTask tsk = TaskList.SelectedItem as ToDoTask;
+                TaskEditor editor = new TaskEditor() { DataContext = tsk };
+                TaskEditorControlWindow c_window = new TaskEditorControlWindow(editor);
+                c_window.ShowDialog();
         }
 
-        private void LoadFile_Click(object sender, RoutedEventArgs e)
-        {
-            filePath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, @"LocalStorage\", localTasksFile);
-            xDoc = XDocument.Load(filePath);
-            foreach (var xTask in xDoc.Element("tasks").Elements())
-            {
-                XAttribute attribute = xTask.Attribute("todo");
-                XElement dateElem = xTask.Element("settedDate");
-                XElement vitalElem = xTask.Element("vital");
-                if (attribute != null && dateElem != null && vitalElem != null)
-                {
-                    if (_tascksCollection.Where(tsk => tsk.ToDo == attribute.Value).Count() == 0)
-                    {
-                        _tascksCollection.Add(new ToDoTask
-                        {
-                            ToDo = attribute.Value,
-                            SettedDate = DateTime.Parse(dateElem.Value),
-                            Vital = Boolean.Parse(vitalElem.Value),
-                            Counter = _tascksCollection.Count + 1
-                        });
-                    }
-                }
-            }
-        }
     }
 }

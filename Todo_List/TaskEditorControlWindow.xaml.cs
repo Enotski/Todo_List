@@ -71,9 +71,14 @@ namespace Todo_List
             }
         }
 
-        private void btCancel_Click(object sender, RoutedEventArgs e)
+        private void btnRemove_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = false;
+            if (TaskList.SelectedItem != null)
+            {
+                ToDoTask tsk = TaskList.SelectedItem as ToDoTask;
+                TaskList.Items.Remove(tsk);
+            }
+            DialogResult = true;
         }
 
         private List<Control> GetChildControls(object currentControl)

@@ -5,14 +5,14 @@
 		<Style TargetType="TextBox">
 			<Setter Property="Margin" Value="5"/>
 			<Setter Property="Background" Value="Transparent"/>
-			<Setter Property="Foreground" Value="White"/>
-			<Setter Property="CaretBrush" Value="White"/>
+			<Setter Property="Foreground" Value="LightSlateGray"/>
+			<Setter Property="CaretBrush" Value="LightSlateGray"/>
 			<Setter Property="BorderThickness" Value="1"/>
 		</Style>
 		<Style TargetType="TextBlock">
 			<Setter Property="Margin" Value="5"/>
 			<Setter Property="FontWeight" Value="Bold"/>
-			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="Foreground" Value="LightSlateGray"/>
 			<Setter Property="FontWeight" Value="Bold"/>
 		</Style>
 	</UserControl.Resources>
@@ -23,10 +23,12 @@
 		<TextBlock Text="Vital" />
 		<CheckBox Margin="5, 5"
 				  HorizontalAlignment="Left"
+				  Foreground="LightSlateGray"
 				  IsChecked="{Binding Vital}"/>
 		<TextBlock Text="Date" />
 		<Calendar FirstDayOfWeek="Monday" 
 					Background="Transparent"
+				  Foreground="LightSlateGray"
 					SelectedDate="{Binding SettedDate}"/>
 	</StackPanel>
 </UserControl>

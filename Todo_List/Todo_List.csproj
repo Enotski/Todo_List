@@ -115,5 +115,6 @@
   <ItemGroup>
     <Resource Include="LocalStorage\LocalHistory.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

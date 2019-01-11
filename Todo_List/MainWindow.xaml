@@ -5,52 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Todo_List"
         mc:Ignorable="d"
-         Title="ToDo" MinHeight="450" Background="#070F1B" MaxWidth="580"  MinWidth="480" Width="580" Height="412.5">
-	<Window.Resources>
-		<Style x:Key="btnStyle" TargetType="Button">
-			<Setter Property="FontWeight" Value="Bold"/>
-			<Setter Property="Foreground" Value="White"/>
-			<Setter Property="Margin" Value="10,20"/>
-			<Setter Property="Padding" Value="0, 7"/>
-			<Setter Property="BorderThickness" Value="0"/>
-		</Style>
-	</Window.Resources>
-	<Grid Margin="10">
+         Title="ToDo" Background="White" SizeToContent="Width" MaxHeight="550" MinHeight="120" MinWidth="320" Height="380">
+	<Grid>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="40"/>
-			<RowDefinition/>
+			<RowDefinition />
+			<RowDefinition Height="70" />
 		</Grid.RowDefinitions>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="auto" MinWidth="427"/>
-			<ColumnDefinition/>
-		</Grid.ColumnDefinitions>
-
-		<Menu Height="20" VerticalAlignment="Top" Background="Transparent" Margin="0,10,13,0">
-			<MenuItem Click="SaveFile_Click" Margin="0, 0, 10, 0" Foreground="White" Background="#0079E5" Header="Save in file">
-			</MenuItem>
-			<MenuItem Click="LoadFile_Click" Background="#58A7EE" Foreground="White" Header="Load from file">
-			</MenuItem>
-		</Menu>
-
-		<StackPanel Orientation="Vertical" MinWidth="100" Grid.Row="1" Grid.Column="1" Margin="0,0,0,10" HorizontalAlignment="Stretch">
-			<Button x:Name="btnAdd" Content="Add Task" Click="btnAdd_Click" Style="{DynamicResource btnStyle}" Background="YellowGreen" >
-			</Button>
-			<Button x:Name="btnEdit" Content="Edit Task" Click="btnEdit_Click" Style="{DynamicResource btnStyle}" Background="#0073E8"/>
-			<Button x:Name="btnRemove" Content="Remove Task" Click="btnRemove_Click" Style="{DynamicResource btnStyle}"  Background="Maroon" />
-			<Button x:Name="btnComplete" Content="Complete Task" Click="btnComplete_Click" Style="{DynamicResource btnStyle}" Background="Orange"/>
-			<TextBlock Foreground="White" Background="Transparent" TextAlignment="Center"  Text="Completed" Height="20"/>
-			<TextBlock x:Name="CompletedCount"  Foreground="White" Background="Transparent" TextAlignment="Center"  Text="{Binding Path=_completedTasks}" Height="30"/>
-		</StackPanel>
-
-		<ListView x:Name="TaskList" MaxHeight="360" MaxWidth="425" Background="Transparent" BorderThickness="0"  Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Stretch"  AlternationCount="2">
+		<ListView x:Name="TaskList" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Stretch" Grid.Row="0"  AlternationCount="2" >
 			<ListView.ItemContainerStyle>
 				<Style TargetType="ListViewItem">
 					<Style.Triggers>
 						<Trigger Property="ItemsControl.AlternationIndex"  Value="0">
-							<Setter Property="Background" Value="#58A7EE" />
+							<Setter Property="Background" Value="LightGray" />
 						</Trigger>
 						<Trigger Property="ItemsControl.AlternationIndex"  Value="1">
-							<Setter Property="Background" Value="#0079E5" />
+							<Setter Property="Background" Value="LightSlateGray" />
 						</Trigger>
 					</Style.Triggers>
 				</Style>
@@ -58,21 +27,19 @@
 
 			<ListView.ItemTemplate>
 				<DataTemplate>
-
 					<DataTemplate.Triggers>
 						<DataTrigger Binding="{Binding Path=Vital}" Value="true">
 							<Setter TargetName="TaskBlock" Property="Panel.Background" Value="Orange"/>
 							<Setter TargetName="Order" Property="TextBlock.Background" Value="OrangeRed"/>
 						</DataTrigger>
 					</DataTemplate.Triggers>
-
-					<DockPanel x:Name="TaskBlock" HorizontalAlignment="Stretch" Margin="-2 ,0, 0, 0">
-						<TextBlock x:Name="Order" HorizontalAlignment="Stretch" Background="{Binding ElementName=TaskBlock, Path=Background}" Width="32"  FontSize="16" FontWeight="Bold" Padding="7" TextAlignment="Center" Text="{Binding Counter}" Foreground="White"/>
-						<TextBlock DockPanel.Dock="Right" x:Name="ToDo" FontSize="16" FontWeight="Bold" Padding="7" Text="{Binding ToDo}" Foreground="White"/>
+					<DockPanel MouseRightButtonDown="editTask" x:Name="TaskBlock" HorizontalAlignment="Stretch" Margin="-2 ,0, 0, 0">
+						<TextBlock x:Name="Order" Background="{Binding ElementName=TaskBlock, Path=Background}" Width="32"  FontSize="16" FontWeight="Bold" Padding="7" TextAlignment="Justify" VerticalAlignment="Stretch" Text="{Binding Counter}" Foreground="White"/>
+						<TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" x:Name="ToDo" FontSize="16" FontWeight="Bold" Padding="7" Text="{Binding ToDo}"  Foreground="White" />
 
 						<DockPanel.ToolTip>
-							<ToolTip Background="#070F1B" Foreground="White" HasDropShadow="False"
-                Placement="Relative" HorizontalOffset="15" VerticalOffset="10">
+							<ToolTip MouseLeftButtonDown="editTask" Background="#070F1B" Foreground="White" HasDropShadow="True"
+                Placement="MousePoint" HorizontalOffset="15" VerticalOffset="10">
 								<StackPanel>
 									<TextBlock Text="{Binding SettedDate}" />
 								</StackPanel>
@@ -80,8 +47,37 @@
 						</DockPanel.ToolTip>
 
 					</DockPanel>
+
 				</DataTemplate>
 			</ListView.ItemTemplate>
 		</ListView>
+		<DockPanel Grid.Row="1" Margin="10">
+
+			<Button Grid.Column="0"
+            HorizontalAlignment="Left"
+            BorderBrush="Transparent"
+            x:Name="btnCalendar"
+            Content="Calendar"
+            Background="OrangeRed"
+					FontSize="20"
+					Width="100"
+					FontWeight="Bold"
+					Style="{StaticResource RoundButtonTemplate}"
+            />
+			<Button Grid.Column="1" FontSize="20" Click="btnComplete_Click" BorderThickness="0" BorderBrush="Transparent" x:Name="btnComplete" Background="YellowGreen" HorizontalAlignment="Center" Margin="20,0" Width="80" Content="done" FontWeight="Bold" Foreground="White" Style="{StaticResource RoundButtonTemplate}"/>
+
+			<Button Grid.Column="2"
+            Style="{StaticResource RoundButtonTemplate}"
+			FontSize="20"
+					Click="btnAdd_Click"
+            BorderBrush="Transparent"
+            x:Name="btnAdd"
+            Content="Add"
+					Width="80"
+            Background="SkyBlue" 
+					HorizontalAlignment="Right"
+					FontWeight="Bold"
+            />
+		</DockPanel>
 	</Grid>
 </Window>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Todo_List"
         mc:Ignorable="d"
-        Title="Task" SizeToContent="WidthAndHeight" MinWidth="223" Background="#070F1B" WindowStyle="ToolWindow">
+        Title="Task" SizeToContent="WidthAndHeight" MinWidth="223" Background="White" WindowStyle="ToolWindow">
 	<Window.Resources>
 		<Style TargetType="Button">
 			<Setter Property="Grid.Row" Value="2"/>
@@ -13,18 +13,18 @@
 			<Setter Property="Width" Value="100"/>
 		</Style>
 	</Window.Resources>
-	<Grid>
+	<Grid >
 		<Grid.RowDefinitions>
-			<RowDefinition Height="auto"/>
+			<RowDefinition Height="35"/>
 			<RowDefinition Height="1*"/>
 			<RowDefinition Height="35"/>
 		</Grid.RowDefinitions>
-		<StackPanel x:Name="ErrorMsg" Visibility="Collapsed" Background="#FFCCCC">
+		<StackPanel x:Name="ErrorMsg" Visibility="Collapsed" Background="OrangeRed">
 			<TextBlock Text="Fill all empty fields"/>
-			<ListView x:Name="TaskList" Background="#FFCCCC"/>
+			<ListView x:Name="TaskList" Background="OrangeRed"/>
 		</StackPanel>
 		<ContentPresenter Grid.Row="1" x:Name="TaskEditor"/>
-		<Button Margin="5" x:Name="btCancel" Foreground="White" Background="Maroon" Content="Back" Click="btCancel_Click" />
-		<Button Margin="5,5,110,5" x:Name="btAccept" Foreground="White" Background="YellowGreen" Content="Accept" Click="btApply_Click" />
+		<Button  x:Name="btRemove" Foreground="White" Style="{StaticResource RoundButtonTemplate}" Background="OrangeRed" Grid.Row="0" Content="Remove Task" Click="btnRemove_Click" HorizontalAlignment="Stretch" FontWeight="Bold" Margin="10,5"/>
+		<Button HorizontalAlignment="Stretch" x:Name="btAccept" Foreground="White" Style="{StaticResource RoundButtonTemplate}" Background="YellowGreen" Content="Accept" Grid.Row="2" FontWeight="Bold" Click="btApply_Click" Margin="10,5"/>
 	</Grid>
 </Window>
