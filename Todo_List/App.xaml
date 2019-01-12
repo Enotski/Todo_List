@@ -4,29 +4,6 @@
              xmlns:local="clr-namespace:Todo_List"
              StartupUri="MainWindow.xaml">
 	<Application.Resources>
-		<Style x:Key="RoundButtonTemplate" TargetType="Button">
-			<Setter Property="Foreground" Value="White" />
-			<Setter Property="Padding" Value="10,20,10,10" />
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="Button">
-						<Border CornerRadius="6" Background="{TemplateBinding Background}" BorderThickness="1">
-							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
-							</ContentPresenter>
-						</Border>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
-		<Style x:Key="RoundListRow" TargetType="ListViewItem">
-			<Setter Property="Template">
-					<Setter.Value>
-						<ControlTemplate TargetType="ListViewItem">
-						<Border CornerRadius="6" Background="{TemplateBinding Background}" BorderThickness="0"/>
-					</ControlTemplate>
-					</Setter.Value>
-				</Setter>
-			<Setter Property="Padding" Value="10,0,10,10"/>
-		</Style>
+		<ResourceDictionary Source="StyleResources.xaml" />
 	</Application.Resources>
 </Application>

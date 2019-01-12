@@ -4,6 +4,7 @@ using System.Windows;
 using System.Collections.ObjectModel;
 using System.Xml.Linq;
 using System.IO;
+using System.Windows.Media;
 
 namespace Todo_List
 {
@@ -12,12 +13,7 @@ namespace Todo_List
     /// </summary>
     public partial class MainWindow : Window
     {
-        XDocument xDoc;
-        XElement xElemRoot;
         ObservableCollection<ToDoTask> _tascksCollection;
-        string localTasksFile = "LocalTasks.xml"; 
-        string localHistoryFile = "LocalHistory.xml";
-        string filePath = null;
 
         public MainWindow()
         {
@@ -33,12 +29,6 @@ namespace Todo_List
             TaskList.ItemsSource = _tascksCollection;
             UpdateTaskList();
         }
-
-        private void btnEdit_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             ToDoTask tsk = new ToDoTask();
@@ -63,19 +53,19 @@ namespace Todo_List
         {
             if (TaskList.SelectedItem != null)
             {
-                filePath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, @"LocalStorage\", localHistoryFile);
+                //filePath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, @"LocalStorage\", localHistoryFile);
 
                 ToDoTask tsk = TaskList.SelectedItem as ToDoTask;
                 _tascksCollection.Remove(tsk);
                 UpdateTaskList();
 
-                xDoc = XDocument.Load(filePath);
-                xElemRoot = xDoc.Element("tasks");
-                xElemRoot.Add(new XElement("task",
-                        new XAttribute("todo", tsk.ToDo),
-                        new XElement("settedDate", tsk.SettedDate),
-                        new XElement("vital", tsk.Vital)));
-                xDoc.Save(filePath);
+                //xDoc = XDocument.Load(filePath);
+                //xElemRoot = xDoc.Element("tasks");
+                //xElemRoot.Add(new XElement("task",
+                //        new XAttribute("todo", tsk.ToDo),
+                //        new XElement("settedDate", tsk.SettedDate),
+                //        new XElement("vital", tsk.Vital)));
+                //xDoc.Save(filePath);
             }
         }
 
@@ -122,10 +112,13 @@ namespace Todo_List
 
         private void editTask(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            if(TaskList.SelectedItem != null)
+            {
                 ToDoTask tsk = TaskList.SelectedItem as ToDoTask;
                 TaskEditor editor = new TaskEditor() { DataContext = tsk };
                 TaskEditorControlWindow c_window = new TaskEditorControlWindow(editor);
                 c_window.ShowDialog();
+            }
         }
 
     }
