@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.ComponentModel.DataAnnotations;
+using Todo_List.Models;
 
 namespace Todo_List
 {

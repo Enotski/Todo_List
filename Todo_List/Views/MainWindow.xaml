@@ -1,0 +1,99 @@
+﻿<Window x:Class="Todo_List.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Todo_List"
+        mc:Ignorable="d"
+         Title="ToDo" Background="White" SizeToContent="Width" MinHeight="120" MinWidth="320" Height="380">
+	<Window.Resources>
+		<Style TargetType="{x:Type MenuItem}">
+			<Style.Triggers>
+				<Trigger Property="IsMouseOver" Value="true">
+					<Setter Property="Background" Value="Blue" />
+				</Trigger>
+			</Style.Triggers>
+		</Style>
+	</Window.Resources>
+	<Grid Margin="10,0">
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition Height="70" />
+		</Grid.RowDefinitions>
+		<ListView x:Name="TaskList" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Stretch" Grid.Row="0" ItemsSource="{Binding TodoCollection}" SelectedItem="{Binding SelectedTodo}" AlternationCount="2">
+			<ListView.ItemTemplate>
+				<DataTemplate>
+					<DataTemplate.Triggers>
+						<DataTrigger Binding="{Binding Path=Vital}" Value="true">
+							<Setter TargetName="ToDo" Property="TextBlock.Background" Value="Orange"/>
+							<Setter TargetName="ToDo" Property="TextBlock.Foreground" Value="White"/>
+							<Setter TargetName="Order" Property="TextBlock.Background" Value="OrangeRed"/>
+							<Setter TargetName="Order" Property="TextBlock.Foreground" Value="White"/>
+						</DataTrigger>
+					</DataTemplate.Triggers>
+					<DockPanel  x:Name="TaskBlock"
+								MouseRightButtonDown="editTask"
+								HorizontalAlignment="Stretch"
+								Margin="-2 ,0, 0, 0"
+								>
+						<TextBlock x:Name="Order"					   
+								   Width="32"
+								   TextAlignment="Justify"
+								   VerticalAlignment="Stretch"
+								   Text="{Binding Path=Order}"
+								   Padding="10"
+								   Style="{DynamicResource TextBlockTemplate}"
+								   />
+						<TextBlock x:Name="ToDo"
+								   VerticalAlignment="Stretch"
+								   Text="{Binding Path=ToDo}" HorizontalAlignment="Stretch"
+								   Style="{DynamicResource TextBlockTemplate}"
+								   />
+					</DockPanel>
+					
+				</DataTemplate>
+			</ListView.ItemTemplate>
+			<ListView.ContextMenu>
+				<ContextMenu HasDropShadow="True" BorderThickness="0" Background="Gray">
+					<Grid DataContext="{Binding SelectedTodo}" Background="Transparent">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="35"/>
+							<RowDefinition Height="1*"/>
+						</Grid.RowDefinitions>
+						<Button  x:Name="btRemove"
+				 Grid.Row="0"
+				 Background="OrangeRed" 
+				 Style="{StaticResource RoundButtonTemplate}"
+				 Content="Remove Task"
+				 HorizontalAlignment="Stretch"
+				 Margin="10,0"/>
+						<StackPanel Grid.Row="1">
+							<TextBox Style="{DynamicResource EditorTxtBoxTemplate}" Text="{Binding ToDo, UpdateSourceTrigger=PropertyChanged}"/>
+							<CheckBox Content="Vital"
+				  HorizontalAlignment="Left"
+				  Foreground="Black"
+									  FontSize="16"
+				  IsChecked="{Binding Vital, UpdateSourceTrigger=PropertyChanged}"/>
+							<Calendar FirstDayOfWeek="Monday" 
+				SelectedDate="{Binding SettedDate, UpdateSourceTrigger=PropertyChanged}"
+				  Style="{DynamicResource StyleCalendar}"/>
+						</StackPanel>
+
+					</Grid>
+				</ContextMenu>
+			</ListView.ContextMenu>
+		</ListView>
+		<Button
+					Style="{DynamicResource RoundButtonTemplate}"
+					Click="btnAdd_Click"
+					Command="{Binding AddCommand}"
+					BorderBrush="Transparent"
+					x:Name="btnAdd"
+					Content="Add"
+					Background="SkyBlue"
+			Margin="0,10"
+					Grid.Row="2"
+            />
+
+	</Grid>
+</Window>

@@ -17,21 +17,5 @@
 			<ListView x:Name="TaskList" Background="OrangeRed"/>
 		</StackPanel>
 		<ContentPresenter Grid.Row="1" x:Name="TaskEditor"/>
-		<Button  x:Name="btRemove"
-				 Grid.Row="0"
-				 Background="OrangeRed" 
-				 Style="{StaticResource RoundButtonTemplate}"
-				 Content="Remove Task"
-				 Click="btnRemove_Click"
-				 HorizontalAlignment="Stretch"
-				 Margin="10,0"/>
-		<Button  x:Name="btAccept"
-				 HorizontalAlignment="Stretch"
-				 Style="{StaticResource RoundButtonTemplate}"
-				 Background="YellowGreen"
-				 Content="Accept"
-				 Grid.Row="2"
-				 Click="btApply_Click"
-				 Margin="10,0"/>
 	</Grid>
 </Window>

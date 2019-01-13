@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using Todo_List.Models;
+using System.Windows.Controls;
 
 namespace Todo_List
 {
