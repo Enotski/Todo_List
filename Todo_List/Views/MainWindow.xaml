@@ -60,13 +60,6 @@
 							<RowDefinition Height="35"/>
 							<RowDefinition Height="1*"/>
 						</Grid.RowDefinitions>
-						<Button  x:Name="btRemove"
-				 Grid.Row="0"
-				 Background="OrangeRed" 
-				 Style="{StaticResource RoundButtonTemplate}"
-				 Content="Remove Task"
-				 HorizontalAlignment="Stretch"
-				 Margin="10,0"/>
 						<StackPanel Grid.Row="1">
 							<TextBox Style="{DynamicResource EditorTxtBoxTemplate}" Text="{Binding ToDo, UpdateSourceTrigger=PropertyChanged}"/>
 							<CheckBox Content="Vital"
@@ -78,22 +71,30 @@
 				SelectedDate="{Binding SettedDate, UpdateSourceTrigger=PropertyChanged}"
 				  Style="{DynamicResource StyleCalendar}"/>
 						</StackPanel>
-
 					</Grid>
 				</ContextMenu>
 			</ListView.ContextMenu>
 		</ListView>
+		
 		<Button
-					Style="{DynamicResource RoundButtonTemplate}"
-					Click="btnAdd_Click"
-					Command="{Binding AddCommand}"
-					BorderBrush="Transparent"
-					x:Name="btnAdd"
-					Content="Add"
-					Background="SkyBlue"
-			Margin="0,10"
-					Grid.Row="2"
+				Style="{DynamicResource RoundButtonTemplate}"
+				Command="{Binding AddCommand}"
+				BorderBrush="Transparent"
+				x:Name="btnAdd"
+				Content="Add"
+				Background="SkyBlue"
+				HorizontalAlignment="Right"
+				Margin="0,10"
+				Grid.Row="1" Width="140"
             />
-
+		<Button  x:Name="btRemove"
+				Grid.Row="1"
+				Command="{Binding RemoveCommand}"
+				CommandParameter="{Binding SelectedTodo}"
+				Background="OrangeRed" 
+				Style="{StaticResource RoundButtonTemplate}"
+				Content="Remove Task"
+				HorizontalAlignment="Left"
+				Margin="0,10" Width="140"/>
 	</Grid>
 </Window>

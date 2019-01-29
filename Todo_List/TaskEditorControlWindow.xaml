@@ -7,15 +7,6 @@
         mc:Ignorable="d"
         Title="Task" SizeToContent="WidthAndHeight" MinWidth="223" Background="White" WindowStyle="SingleBorderWindow">
 	<Grid Margin="0, 10">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="35"/>
-			<RowDefinition Height="1*"/>
-			<RowDefinition Height="35"/>
-		</Grid.RowDefinitions>
-		<StackPanel x:Name="ErrorMsg" Visibility="Collapsed" Background="OrangeRed">
-			<TextBlock Text="Fill all empty fields"/>
-			<ListView x:Name="TaskList" Background="OrangeRed"/>
-		</StackPanel>
-		<ContentPresenter Grid.Row="1" x:Name="TaskEditor"/>
+		<ContentPresenter x:Name="TaskEditor"/>
 	</Grid>
 </Window>

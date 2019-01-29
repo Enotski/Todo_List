@@ -12,6 +12,8 @@ namespace Todo_List.ViewModels
         public ObservableCollection<ToDoTask> TodoCollection { get; set; }
 
         private RelayCommand _addCommand;
+        private RelayCommand _removeCommand;
+
         public RelayCommand AddCommand
         {
             get
@@ -23,6 +25,21 @@ namespace Todo_List.ViewModels
                         todo.Order = TodoCollection.Count + 1;
                         TodoCollection.Add(todo);
                     }));
+            }
+        }
+        public RelayCommand RemoveCommand
+        {
+            get
+            {
+                return _removeCommand ??
+                    (_removeCommand = new RelayCommand(obj =>
+                    {
+                        ToDoTask todo = obj as ToDoTask;
+                        if(todo != null)
+                        {
+                            TodoCollection.Remove(todo);
+                        }
+                    }, (obj) => TodoCollection.Count > 0));
             }
         }
 
@@ -39,11 +56,9 @@ namespace Todo_List.ViewModels
         {
             TodoCollection = new ObservableCollection<ToDoTask>()
             {
-               new ToDoTask { ToDo="Get a work as Mr/Xr UI/UX developer", Vital=true, SettedDate = DateTime.Today, Order=1 },
-               new ToDoTask { ToDo="Become needful", Vital=true, SettedDate = DateTime.Today, Order=2 },
-                new ToDoTask { ToDo="Buy a pretty house", Vital=false, SettedDate = DateTime.Today, Order=3 },
-              new ToDoTask { ToDo="Become financial independetly", Vital=true, SettedDate = DateTime.Today, Order=4 },
-              new ToDoTask { ToDo="Don`t think about stupid things", Vital=false, SettedDate = DateTime.Today, Order=5 },
+                new ToDoTask { ToDo = "Something", Vital = true, SettedDate = DateTime.Today, Order = 1 },
+               new ToDoTask { ToDo = "Something_1", Vital = true, SettedDate = DateTime.Today, Order = 2 },
+                new ToDoTask { ToDo = "Something_2", Vital = false, SettedDate = DateTime.Today, Order = 3 }
             };
         }
         public event PropertyChangedEventHandler PropertyChanged;
