@@ -12,8 +12,6 @@ namespace Todo_List.Models
         private bool _vital;
         private int _order;
 
-        [Display(Name = "Task")]
-        [Required()]
         public string ToDo
         {
             get { return _toDo; }
@@ -23,6 +21,8 @@ namespace Todo_List.Models
                 OnPropertyChanged("ToDo");
             }
         }
+
+        // Deadline date
         public DateTime SettedDate
         {
             get { return _settedDate; }
@@ -41,6 +41,8 @@ namespace Todo_List.Models
                 OnPropertyChanged("Vital");
             }
         }
+
+        // Order in tasks collection
         public int Order
         {
             get { return _order; }

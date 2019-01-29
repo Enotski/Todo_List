@@ -3,6 +3,9 @@ using System.Windows.Input;
 
 namespace Todo_List.ViewModels
 {
+    /// <summary>
+    /// Realisation of Command Inteface
+    /// </summary>
     public class RelayCommand : ICommand
     {
         private Action<object> _execute;

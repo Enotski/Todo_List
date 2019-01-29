@@ -19,10 +19,5 @@ namespace Todo_List
             InitializeComponent();
             DataContext = new TodoViewModel();
         }
-        private void editTask(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-
-        }
-
     }
 }

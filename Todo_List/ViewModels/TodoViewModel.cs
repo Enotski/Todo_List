@@ -11,9 +11,22 @@ namespace Todo_List.ViewModels
         private ToDoTask _selectedTodo;
         public ObservableCollection<ToDoTask> TodoCollection { get; set; }
 
+        // fill collection with something
+        public TodoViewModel()
+        {
+            TodoCollection = new ObservableCollection<ToDoTask>()
+            {
+                new ToDoTask { ToDo = "Something", Vital = true, SettedDate = DateTime.Today, Order = 1 },
+               new ToDoTask { ToDo = "Something_1", Vital = true, SettedDate = DateTime.Today, Order = 2 },
+                new ToDoTask { ToDo = "Something_2", Vital = false, SettedDate = DateTime.Today, Order = 3 }
+            };
+        }
+
+        /// <summary>
+        /// commands for buttons
+        /// </summary>
         private RelayCommand _addCommand;
         private RelayCommand _removeCommand;
-
         public RelayCommand AddCommand
         {
             get
@@ -43,6 +56,7 @@ namespace Todo_List.ViewModels
             }
         }
 
+        // selected item in taskList
         public ToDoTask SelectedTodo
         {
             get { return _selectedTodo; }
@@ -52,15 +66,7 @@ namespace Todo_List.ViewModels
                 OnPropertyChanged("SelectedTodo");
             }
         }
-        public TodoViewModel()
-        {
-            TodoCollection = new ObservableCollection<ToDoTask>()
-            {
-                new ToDoTask { ToDo = "Something", Vital = true, SettedDate = DateTime.Today, Order = 1 },
-               new ToDoTask { ToDo = "Something_1", Vital = true, SettedDate = DateTime.Today, Order = 2 },
-                new ToDoTask { ToDo = "Something_2", Vital = false, SettedDate = DateTime.Today, Order = 3 }
-            };
-        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {

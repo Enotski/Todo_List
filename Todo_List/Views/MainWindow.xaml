@@ -6,21 +6,13 @@
         xmlns:local="clr-namespace:Todo_List"
         mc:Ignorable="d"
          Title="ToDo" Background="White" SizeToContent="Width" MinHeight="120" MinWidth="320" Height="380">
-	<Window.Resources>
-		<Style TargetType="{x:Type MenuItem}">
-			<Style.Triggers>
-				<Trigger Property="IsMouseOver" Value="true">
-					<Setter Property="Background" Value="Blue" />
-				</Trigger>
-			</Style.Triggers>
-		</Style>
-	</Window.Resources>
+
 	<Grid Margin="10,0">
 		<Grid.RowDefinitions>
 			<RowDefinition />
 			<RowDefinition Height="70" />
 		</Grid.RowDefinitions>
-		<ListView x:Name="TaskList" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Stretch" Grid.Row="0" ItemsSource="{Binding TodoCollection}" SelectedItem="{Binding SelectedTodo}" AlternationCount="2">
+		<ListView x:Name="TaskList" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Stretch" Grid.Row="0" ItemsSource="{Binding TodoCollection}" SelectedItem="{Binding SelectedTodo}">
 			<ListView.ItemTemplate>
 				<DataTemplate>
 					<DataTemplate.Triggers>
@@ -32,7 +24,6 @@
 						</DataTrigger>
 					</DataTemplate.Triggers>
 					<DockPanel  x:Name="TaskBlock"
-								MouseRightButtonDown="editTask"
 								HorizontalAlignment="Stretch"
 								Margin="-2 ,0, 0, 0"
 								>
